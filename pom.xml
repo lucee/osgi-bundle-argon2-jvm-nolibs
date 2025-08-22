@@ -2,11 +2,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.lucee</groupId>
   <artifactId>argon2-jvm-nolibs</artifactId>
-  <version>2.11.0</version>
-  <name>argon2</name>
+  <version>2.12.0</version>
+  <name>argon2-jvm-nolibs</name>
   <packaging>bundle</packaging>
 
-  <description>OSGi Version of argon2</description>
+  <description>OSGi Version of argon2-jvm-nolibs</description>
   <url>http://maven.lucee.org/argon2-jvm-nolibs/</url>
 
   <!-- same license as the original jar -->
@@ -36,16 +36,15 @@
   <build>
     <plugins>
       <plugin>
-      <groupId>org.sonatype.plugins</groupId>
-      <artifactId>nexus-staging-maven-plugin</artifactId>
-      <version>1.6.3</version>
-      <extensions>true</extensions>
-      <configuration>
-        <serverId>ossrh</serverId>
-        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-        <autoReleaseAfterClose>true</autoReleaseAfterClose>
-      </configuration>
-    </plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.8.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>ossrh</publishingServerId>
+          <autoPublish>true</autoPublish>
+        </configuration>
+      </plugin>
 
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
@@ -90,11 +89,12 @@
                  <artifactItem>
                    <groupId>de.mkammerer</groupId>
                     <artifactId>argon2-jvm-nolibs</artifactId>
-                    <version>2.1</version>
+                    <version>2.12</version>
                     <!-- <classifier></classifier> -->
                    <type>jar</type>
                    <overWrite>false</overWrite>
                    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                   <includes>**/*.*</includes> 
                  </artifactItem>
                </artifactItems>
                <overWriteReleases>true</overWriteReleases>
@@ -121,8 +121,11 @@
             <!-- <DynamicImport-Package>*</DynamicImport-Package> -->
             <!-- <Fragment-Host></Fragment-Host> -->
             <Manifest-Version>1.0</Manifest-Version>
+						<Multi-Release>true</Multi-Release>
+						<Automatic-Module-Name>de.mkammerer.argon2.nolibs</Automatic-Module-Name>
             <!-- Embed Dependency -->
             <!-- <_noee></_noee> -->
+            <!-- <Include-Resource>@${project.build.outputDirectory}</Include-Resource> -->
           </instructions>
         </configuration>
         <extensions>true</extensions>
@@ -137,18 +140,6 @@
     <url>https://github.com/lucee/osgi-bundle-argon2-jvm-nolibs</url>
     <connection>scm:git:git://github.com/lucee/osgi-bundle-argon2-jvm-nolibs.git</connection>
     <developerConnection>scm:git:git@github.com:lucee/osgi-bundle-argon2-jvm-nolibs.git</developerConnection>
-    <tag>argon2 OSGi library</tag>
+    <tag>argon2-jvm-nolibs OSGi library</tag>
   </scm>
-
-  <distributionManagement>
-    <repository>
-    <id>ossrh</id>
-    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-  </repository>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
 </project>
